@@ -60,4 +60,6 @@ dependencies {
 
     implementation(libs.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.google.fonts)
+    implementation(libs.material.icons.extended)
 }
