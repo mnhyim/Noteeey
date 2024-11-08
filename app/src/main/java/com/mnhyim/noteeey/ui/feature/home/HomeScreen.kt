@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
-    Scaffold { innerPadding ->  
+    Scaffold { innerPadding ->
         HomeScreenContent(
             modifier = Modifier.padding(innerPadding)
         )

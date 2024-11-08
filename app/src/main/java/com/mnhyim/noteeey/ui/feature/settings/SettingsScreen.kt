@@ -7,17 +7,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mnhyim.noteeey.navigation.Routes
 import com.mnhyim.noteeey.ui.components.CustomCenterAlignedTopAppBar
 import com.mnhyim.noteeey.ui.components.SettingItem
 
 @Composable
 fun SettingsScreen(
-    modifier: Modifier = Modifier
+    onNavigate: (Routes) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -27,6 +27,7 @@ fun SettingsScreen(
         }
     ) { innerPadding ->
         SettingsScreenContent(
+            onNavigate = onNavigate,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -36,7 +37,8 @@ fun SettingsScreen(
 
 @Composable
 fun SettingsScreenContent(
-    modifier: Modifier = Modifier
+    onNavigate: (Routes) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -49,7 +51,7 @@ fun SettingsScreenContent(
                     icon = it.icon,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(onClick = { })
+                        .clickable(onClick = { onNavigate(it.route) })
                         .padding(16.dp)
                 )
             }

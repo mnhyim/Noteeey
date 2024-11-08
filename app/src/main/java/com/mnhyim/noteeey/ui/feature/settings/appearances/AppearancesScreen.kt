@@ -1,4 +1,4 @@
-package com.mnhyim.noteeey.ui.feature.settings.addcategories
+package com.mnhyim.noteeey.ui.feature.settings.appearances
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -9,28 +9,27 @@ import androidx.compose.ui.Modifier
 import com.mnhyim.noteeey.ui.components.CustomTopAppBar
 
 @Composable
-fun AddCategoriesScreen(
+fun AppearancesScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
-            CustomTopAppBar(title = "Add Categories", onBack = {})
-        },
-        modifier = modifier
+            CustomTopAppBar(title = "Appearances", onBack = {})
+        }
     ) { innerPadding ->
-        AddCategoriesScreenContent(
+        AppearancesScreenContent(
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
 @Composable
-private fun AddCategoriesScreenContent(
+private fun AppearancesScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
     ) {
-        Text("Add Categories")
+        Text("Appearances")
     }
 }
