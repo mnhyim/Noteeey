@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mnhyim.noteeey"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.mnhyim.noteeey"
