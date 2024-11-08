@@ -40,7 +40,7 @@ fun NoteItem(
         modifier = modifier
     ) {
         Column(
-            modifier = Modifier.padding(16.dp,16.dp,16.dp,8.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = "Four Words Long Title",
@@ -53,12 +53,14 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodySmall
             )
-            HorizontalDivider(
-                thickness = 0.5.dp,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 6.dp, bottom = 4.dp)
-            )
-            Row {
+//            HorizontalDivider(
+//                thickness = 0.5.dp,
+//                color = Color.Gray,
+//                modifier = Modifier.padding(top = 6.dp, bottom = 4.dp)
+//            )
+            Row(
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
                 Text(
                     text = "Uncategorized",
                     color = Color.Gray,
