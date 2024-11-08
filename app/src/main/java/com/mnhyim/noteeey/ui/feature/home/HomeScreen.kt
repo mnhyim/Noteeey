@@ -1,17 +1,43 @@
 package com.mnhyim.noteeey.ui.feature.home
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.mnhyim.noteeey.ui.components.CustomCenterAlignedTopAppBar
+import com.mnhyim.noteeey.ui.components.NoteItem
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
-    Scaffold { innerPadding ->
+    Scaffold(
+        topBar = {
+            CustomCenterAlignedTopAppBar(
+                title = "Noteeey",
+                actions = {
+                    IconButton(
+                        onClick = {}
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = ""
+                        )
+                    }
+                }
+            )
+        },
+        modifier = modifier
+    ) { innerPadding ->
         HomeScreenContent(
             modifier = Modifier.padding(innerPadding)
         )
@@ -25,6 +51,21 @@ private fun HomeScreenContent(
     Column(
         modifier = modifier
     ) {
-        Text("Home Screen")
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(10) {
+                NoteItem(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .then(
+                            if (it == 0) Modifier.padding(top = 8.dp)
+                            else if (it == 9) Modifier.padding(bottom = 16.dp)
+                            else Modifier
+                        )
+                )
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ fun MainNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Settings
+        startDestination = Routes.Home
     ) {
         composable<Routes.Home> {
             HomeScreen()
