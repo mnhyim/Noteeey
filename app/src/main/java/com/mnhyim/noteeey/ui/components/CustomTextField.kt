@@ -1,5 +1,6 @@
 package com.mnhyim.noteeey.ui.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +20,8 @@ fun CustomTextField(
     title: String,
     value: String,
     onValueChange: (String) -> Unit,
-    singleLine: Boolean,
+    placeholder: String,
+    singleLine: Boolean = true,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,7 +36,8 @@ fun CustomTextField(
             onValueChange = onValueChange,
             placeholder = {
                 Text(
-                    text = "Placeholder text here."
+                    text = placeholder,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             },
             colors = TextFieldDefaults.colors(
@@ -43,7 +46,9 @@ fun CustomTextField(
             ),
             shape = MaterialTheme.shapes.small,
             singleLine = singleLine,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
         )
     }
 }
@@ -58,7 +63,7 @@ fun CustomTextFieldPreview(modifier: Modifier = Modifier) {
             title = "Test Title",
             value = "",
             onValueChange = { },
-            singleLine = true,
+            placeholder = "Placeholder text here.",
             modifier = Modifier.padding(16.dp)
         )
     }

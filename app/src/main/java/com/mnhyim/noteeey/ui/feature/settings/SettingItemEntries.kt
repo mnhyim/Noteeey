@@ -3,6 +3,8 @@ package com.mnhyim.noteeey.ui.feature.settings
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.mnhyim.noteeey.navigation.Routes
 
@@ -15,13 +17,13 @@ enum class SettingItemEntries(
     ADD_CATEGORIES(
         title = "Add Categories",
         subtitle = "Manage notes categories.",
-        icon = Icons.AutoMirrored.Default.List,
+        icon = Icons.Default.Category,
         route = Routes.AddCategories
     ),
     APPEARANCES(
         title = "Appearances",
         subtitle = "Change app's theme and other appearance settings.",
-        icon = Icons.Default.Build,
+        icon = Icons.Default.ColorLens,
         route = Routes.Appearances
     )
 }
