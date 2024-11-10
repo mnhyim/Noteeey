@@ -7,7 +7,7 @@ import com.mnhyim.noteeey.data.entity.CategoryEntity
 
 @Database(
     entities = [CategoryEntity::class],
-    version = 1
+    version = 1,
 )
 abstract class NoteeeyDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
