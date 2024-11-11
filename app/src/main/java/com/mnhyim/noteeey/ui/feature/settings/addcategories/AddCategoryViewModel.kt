@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mnhyim.noteeey.domain.model.Category
 import com.mnhyim.noteeey.domain.usecase.AddCategoryUseCase
+import com.mnhyim.noteeey.domain.usecase.DeleteCategoryUseCase
 import com.mnhyim.noteeey.domain.usecase.GetAllCategoriesUseCase
+import com.mnhyim.noteeey.domain.usecase.UpdateCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddCategoryViewModel @Inject constructor(
+    private val getAllCategoriesUseCase: GetAllCategoriesUseCase,
     private val addCategoryUseCase: AddCategoryUseCase,
-    private val getAllCategoriesUseCase: GetAllCategoriesUseCase
+    private val updateCategoryUseCase: UpdateCategoryUseCase,
+    private val deleteCategoryUseCase: DeleteCategoryUseCase
 ) : ViewModel() {
 
     private var _categories = MutableStateFlow(emptyList<Category>())
@@ -39,6 +43,14 @@ class AddCategoryViewModel @Inject constructor(
     fun addCategory(value: String) {
         viewModelScope.launch {
             addCategoryUseCase(value)
+                .onSuccess { }
+                .onFailure { Log.d(this::class.simpleName, "Exception: ${it.localizedMessage}") }
+        }
+    }
+
+    fun deleteCategory(category: Category) {
+        viewModelScope.launch {
+            deleteCategoryUseCase(category)
                 .onSuccess { }
                 .onFailure { Log.d(this::class.simpleName, "Exception: ${it.localizedMessage}") }
         }

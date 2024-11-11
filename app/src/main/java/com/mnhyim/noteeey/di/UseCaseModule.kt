@@ -2,7 +2,9 @@ package com.mnhyim.noteeey.di
 
 import com.mnhyim.noteeey.domain.repository.CategoryRepository
 import com.mnhyim.noteeey.domain.usecase.AddCategoryUseCase
+import com.mnhyim.noteeey.domain.usecase.DeleteCategoryUseCase
 import com.mnhyim.noteeey.domain.usecase.GetAllCategoriesUseCase
+import com.mnhyim.noteeey.domain.usecase.UpdateCategoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +13,15 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class UseCaseModule {
+object UseCaseModule {
+
+    @Provides
+    @Singleton
+    fun provideGetAllCategoriesUseCase(
+        categoryRepository: CategoryRepository
+    ): GetAllCategoriesUseCase {
+        return GetAllCategoriesUseCase(categoryRepository)
+    }
 
     @Provides
     @Singleton
@@ -23,9 +33,17 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetAllCategoriesUseCase(
+    fun provideUpdateCategoryUseCase(
         categoryRepository: CategoryRepository
-    ): GetAllCategoriesUseCase {
-        return GetAllCategoriesUseCase(categoryRepository)
+    ): UpdateCategoryUseCase {
+        return UpdateCategoryUseCase(categoryRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteCategoryUseCase(
+        categoryRepository: CategoryRepository
+    ): DeleteCategoryUseCase {
+        return DeleteCategoryUseCase(categoryRepository)
     }
 }

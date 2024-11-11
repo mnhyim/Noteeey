@@ -1,13 +1,12 @@
 package com.mnhyim.noteeey.ui.feature.settings.addcategories
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -36,7 +35,8 @@ fun AddCategoryScreen(
     viewModel: AddCategoryViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showAddCategoryDialog by remember { mutableStateOf(false) }
+
     val categories by viewModel.categories.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -48,7 +48,7 @@ fun AddCategoryScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showDialog = true },
+                onClick = { showAddCategoryDialog = true },
                 shape = CircleShape
             ) {
                 Icon(
@@ -59,7 +59,7 @@ fun AddCategoryScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        AnimatedVisibility(visible = showDialog) {
+        AnimatedVisibility(visible = showAddCategoryDialog) {
             var categoriesName by remember { mutableStateOf("") }
 
             CustomDialog(
@@ -88,16 +88,17 @@ fun AddCategoryScreen(
                 onConfirm = {
                     if (categoriesName.isNotBlank()) {
                         viewModel.addCategory(categoriesName)
-                        categoriesName = ""
+                        showAddCategoryDialog = false
                     }
                 },
-                onCancel = { showDialog = false },
-                onDismiss = { showDialog = false },
+                onCancel = { showAddCategoryDialog = false },
+                onDismiss = { showAddCategoryDialog = false },
             )
         }
 
         AddCategoryScreenContent(
             categories = categories,
+            onDelete = { viewModel.deleteCategory(it) },
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp, 0.dp, 16.dp, 0.dp)
@@ -108,6 +109,7 @@ fun AddCategoryScreen(
 @Composable
 private fun AddCategoryScreenContent(
     categories: List<Category>,
+    onDelete: (Category) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -117,12 +119,13 @@ private fun AddCategoryScreenContent(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(items = categories, key = { it.id }) { category ->
+            itemsIndexed(items = categories, key = { _, category -> category.id }) { index, category ->
                 CategoryItem(
                     category = category,
+                    onDelete = { onDelete(category) },
                     modifier = Modifier
                         .then(
-                            if (category.id.toInt() == categories.size) Modifier.padding(bottom = 16.dp)
+                            if (index == categories.size) Modifier.padding(bottom = 16.dp)
                             else Modifier
                         )
                 )

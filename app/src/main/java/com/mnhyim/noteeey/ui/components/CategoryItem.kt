@@ -20,6 +20,7 @@ import com.mnhyim.noteeey.domain.model.Category
 @Composable
 fun CategoryItem(
     category: Category,
+    onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
@@ -34,17 +35,7 @@ fun CategoryItem(
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = ""
-                )
-            }
-            IconButton(
-                onClick = {}
-            ) {
+            IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Default.Remove,
                     contentDescription = ""
