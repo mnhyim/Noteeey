@@ -1,20 +1,22 @@
 package com.mnhyim.noteeey.ui.feature.settings.addcategories
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mnhyim.noteeey.domain.model.Category
-import com.mnhyim.noteeey.domain.repository.CategoryRepository
+import com.mnhyim.noteeey.domain.usecase.AddCategoryUseCase
+import com.mnhyim.noteeey.domain.usecase.GetAllCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class AddCategoryViewModel @Inject constructor(
-    private val categoryRepository: CategoryRepository
+    private val addCategoryUseCase: AddCategoryUseCase,
+    private val getAllCategoriesUseCase: GetAllCategoriesUseCase
 ) : ViewModel() {
 
     private var _categories = MutableStateFlow(emptyList<Category>())
@@ -24,24 +26,21 @@ class AddCategoryViewModel @Inject constructor(
         getCategories()
     }
 
+    /* TODO: Should probably add Error Handling on this and the UseCase class. */
     private fun getCategories() {
         viewModelScope.launch {
-            categoryRepository.getALlCategories().collect { items ->
-                _categories.update { items }
-            }
+            getAllCategoriesUseCase()
+                .collect { categories ->
+                    _categories.update { categories }
+                }
         }
     }
 
     fun addCategory(value: String) {
         viewModelScope.launch {
-            categoryRepository.insertCategory(
-                Category(
-                    id = 0,
-                    name = value,
-                    createdAt = LocalDateTime.now(),
-                    updatedAt = LocalDateTime.now()
-                )
-            )
+            addCategoryUseCase(value)
+                .onSuccess { }
+                .onFailure { Log.d(this::class.simpleName, "Exception: ${it.localizedMessage}") }
         }
     }
 }

@@ -2,10 +2,14 @@ package com.mnhyim.noteeey.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
-@Entity(tableName = "categories")
+@Entity(
+    tableName = "categories",
+    indices = [Index(value = ["category_name"], unique = true)]
+)
 data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "category_id")
