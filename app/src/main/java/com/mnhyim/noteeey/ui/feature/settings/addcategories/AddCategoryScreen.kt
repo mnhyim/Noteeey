@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -22,15 +23,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mnhyim.noteeey.domain.model.Category
 import com.mnhyim.noteeey.ui.components.CategoryItem
 import com.mnhyim.noteeey.ui.components.CustomDialog
 import com.mnhyim.noteeey.ui.components.CustomTopAppBar
 
 @Composable
-fun AddCategoriesScreen(
+fun AddCategoryScreen(
+    viewModel: AddCategoryViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    val categories by viewModel.categories.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -78,13 +84,19 @@ fun AddCategoriesScreen(
                             .padding(top = 16.dp, bottom = 8.dp)
                     )
                 },
-                onConfirm = {},
+                onConfirm = {
+                    if (categoriesName.isNotBlank()) {
+                        viewModel.addCategory(categoriesName)
+                        categoriesName = ""
+                    }
+                },
                 onCancel = { showDialog = false },
                 onDismiss = { showDialog = false },
             )
         }
 
-        AddCategoriesScreenContent(
+        AddCategoryScreenContent(
+            categories = categories,
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp, 0.dp, 16.dp, 0.dp)
@@ -93,7 +105,8 @@ fun AddCategoriesScreen(
 }
 
 @Composable
-private fun AddCategoriesScreenContent(
+private fun AddCategoryScreenContent(
+    categories: List<Category>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -103,11 +116,12 @@ private fun AddCategoriesScreenContent(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(20) {
+            items(items = categories, key = { it.id }) { category ->
                 CategoryItem(
+                    category = category,
                     modifier = Modifier
                         .then(
-                            if (it == 19) Modifier.padding(bottom = 16.dp)
+                            if (category.id.toInt() == categories.size) Modifier.padding(bottom = 16.dp)
                             else Modifier
                         )
                 )

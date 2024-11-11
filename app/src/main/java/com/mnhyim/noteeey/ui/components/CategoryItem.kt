@@ -15,9 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mnhyim.noteeey.domain.model.Category
 
 @Composable
 fun CategoryItem(
+    category: Category,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
@@ -28,7 +30,7 @@ fun CategoryItem(
             modifier = Modifier.padding(16.dp,8.dp,8.dp,8.dp)
         ) {
             Text(
-                text = "Category",
+                text = category.name,
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier.weight(1f))

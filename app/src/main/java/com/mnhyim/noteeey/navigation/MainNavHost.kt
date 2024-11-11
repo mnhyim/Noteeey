@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mnhyim.noteeey.ui.feature.home.HomeScreen
 import com.mnhyim.noteeey.ui.feature.settings.SettingsScreen
-import com.mnhyim.noteeey.ui.feature.settings.addcategories.AddCategoriesScreen
+import com.mnhyim.noteeey.ui.feature.settings.addcategories.AddCategoryScreen
 import com.mnhyim.noteeey.ui.feature.settings.appearances.AppearancesScreen
 
 @Composable
@@ -31,7 +31,7 @@ fun MainNavHost(
             )
         }
         composable<Routes.AddCategories> {
-            AddCategoriesScreen()
+            AddCategoryScreen()
         }
         composable<Routes.Appearances> {
             AppearancesScreen()
