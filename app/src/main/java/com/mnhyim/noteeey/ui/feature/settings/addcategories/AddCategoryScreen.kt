@@ -1,6 +1,7 @@
 package com.mnhyim.noteeey.ui.feature.settings.addcategories
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,7 +44,7 @@ fun AddCategoryScreen(
         topBar = {
             CustomTopAppBar(
                 title = "Add Categories",
-                onBack = {},
+                onBack = {  },
             )
         },
         floatingActionButton = {
@@ -59,7 +60,10 @@ fun AddCategoryScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        AnimatedVisibility(visible = showAddCategoryDialog) {
+        AnimatedVisibility(
+            visible = showAddCategoryDialog,
+            exit = ExitTransition.None
+        ) {
             var categoriesName by remember { mutableStateOf("") }
 
             CustomDialog(

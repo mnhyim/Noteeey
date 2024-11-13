@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mnhyim.noteeey.ui.feature.addnote.AddNoteScreen
 import com.mnhyim.noteeey.ui.feature.home.HomeScreen
 import com.mnhyim.noteeey.ui.feature.settings.SettingsScreen
 import com.mnhyim.noteeey.ui.feature.settings.addcategories.AddCategoryScreen
@@ -18,18 +19,27 @@ fun MainNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Settings
+        startDestination = Routes.Home
     ) {
         composable<Routes.Home> {
-            HomeScreen()
+            HomeScreen(
+                onNavigate = { navController.navigate(it) }
+            )
         }
 
-        /* Settings */
         composable<Routes.Settings> {
             SettingsScreen(
                 onNavigate = { navController.navigate(it) }
             )
         }
+
+        composable<Routes.AddNote> {
+            AddNoteScreen(
+                onNavigate = { navController.navigate(it) }
+            )
+        }
+
+        /* Settings */
         composable<Routes.AddCategories> {
             AddCategoryScreen()
         }

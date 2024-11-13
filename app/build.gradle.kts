@@ -72,4 +72,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
+
+    implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-rc10")
+
 }
