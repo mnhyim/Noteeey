@@ -1,6 +1,5 @@
 package com.mnhyim.noteeey.domain.usecase
 
-import android.util.Log
 import com.mnhyim.noteeey.domain.model.Category
 import com.mnhyim.noteeey.domain.repository.CategoryRepository
 import java.time.LocalDateTime

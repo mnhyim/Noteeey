@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -24,27 +27,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mnhyim.noteeey.domain.model.Category
 import com.mnhyim.noteeey.navigation.Routes
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorDefaults
-import java.time.LocalDateTime
 
 @Composable
 fun AddNoteScreen(
     onNavigate: (Routes) -> Unit,
+    viewModel: AddNoteViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        topBar = {
+    val categories by viewModel.categories.collectAsStateWithLifecycle()
 
-        },
+    Scaffold(
+        topBar = { },
         modifier = modifier
     ) { innerPadding ->
+
         AddNoteScreenContent(
+            categories = categories,
+            onSaveNote = { title, content, id -> viewModel.saveNote(title, content, id) },
             modifier = Modifier
-                .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
                 .imePadding()
         )
@@ -54,20 +61,12 @@ fun AddNoteScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddNoteScreenContent(
+    categories: List<Category>,
+    onSaveNote: (String, String, Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val richTextState = rememberRichTextState()
     var title by remember { mutableStateOf("") }
-
-    /* TODO: Temporary stuff */
-    val categories = (0..19).map { index ->
-        Category(
-            id = index.toLong(),
-            name = "Item ${index + 1}",
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
-        )
-    }
     var selectedCategoryId by remember { mutableLongStateOf(-1) }
 
     Column(
@@ -93,10 +92,12 @@ private fun AddNoteScreenContent(
                     .padding(end = 4.dp)
             )
             CustomDropdown(
-                selectedItemName = if (selectedCategoryId == -1L) "Category" else categories[selectedCategoryId.toInt()].name,
+                selectedItemName = if (selectedCategoryId == -1L) "Category" else categories.first { it.id == selectedCategoryId }.name,
                 list = { closeDialog ->
                     LazyColumn {
-                        items(items = categories, key = { it.id }) { category ->
+                        itemsIndexed(
+                            items = categories,
+                            key = { _, item -> item.id }) { index, category ->
                             CustomDropdownMenuItem(
                                 text = category.name,
                                 isSelected = selectedCategoryId == category.id,
@@ -105,14 +106,18 @@ private fun AddNoteScreenContent(
                                     closeDialog()
                                 }
                             )
+                            if (index != categories.size - 1) {
+                                HorizontalDivider()
+                            }
                         }
                     }
                 },
                 modifier = Modifier.weight(1.5f)
             )
         }
-
-
+        Button(onClick = { onSaveNote(title, richTextState.toMarkdown(), selectedCategoryId) }) {
+            Text("Save Note")
+        }
         Box {
             RichTextEditor(
                 state = richTextState,
@@ -132,5 +137,7 @@ private fun AddNoteScreenContent(
                     .padding(4.dp)
             )
         }
+
+
     }
 }

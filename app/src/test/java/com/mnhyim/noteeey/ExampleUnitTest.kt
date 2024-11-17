@@ -1,6 +1,6 @@
 package com.mnhyim.noteeey
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

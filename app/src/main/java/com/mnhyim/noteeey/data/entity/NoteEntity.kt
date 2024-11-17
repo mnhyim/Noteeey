@@ -2,22 +2,26 @@ package com.mnhyim.noteeey.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
 @Entity(
-    tableName = "categories",
-    indices = [Index(value = ["category_name"], unique = true)]
+    tableName = "notes",
 )
-data class CategoryEntity(
+data class NoteEntity(
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "category_id")
+    @ColumnInfo(name = "note_id")
     val id: Long = 0,
 
-    @ColumnInfo(name = "category_name")
-    val name: String,
+    @ColumnInfo(name = "note_title")
+    val title: String,
+
+    @ColumnInfo(name = "note_content")
+    val content: String,
+
+    @ColumnInfo(name = "note_category_id")
+    val categoryId: Long,
 
     @ColumnInfo(name = "created_at")
     val createdAt: LocalDateTime,

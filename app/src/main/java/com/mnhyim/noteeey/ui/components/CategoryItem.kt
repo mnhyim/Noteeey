@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -28,7 +27,7 @@ fun CategoryItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp,8.dp,8.dp,8.dp)
+            modifier = Modifier.padding(16.dp, 8.dp, 8.dp, 8.dp)
         ) {
             Text(
                 text = category.name,

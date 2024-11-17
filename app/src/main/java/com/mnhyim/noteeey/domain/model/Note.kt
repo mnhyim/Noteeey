@@ -2,9 +2,11 @@ package com.mnhyim.noteeey.domain.model
 
 import java.time.LocalDateTime
 
-data class Category(
+data class Note(
     val id: Long,
-    val name: String,
+    val title: String,
+    val content: String,
+    val category: Category,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 )

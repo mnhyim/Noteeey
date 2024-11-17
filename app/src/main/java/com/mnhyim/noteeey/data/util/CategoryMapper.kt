@@ -2,7 +2,6 @@ package com.mnhyim.noteeey.data.util
 
 import com.mnhyim.noteeey.data.entity.CategoryEntity
 import com.mnhyim.noteeey.domain.model.Category
-import java.time.LocalDateTime
 
 object CategoryMapper {
 

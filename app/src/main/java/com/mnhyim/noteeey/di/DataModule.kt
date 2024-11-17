@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Room
 import com.mnhyim.noteeey.data.NoteeeyDatabase
 import com.mnhyim.noteeey.data.dao.CategoryDao
+import com.mnhyim.noteeey.data.dao.NoteDao
 import com.mnhyim.noteeey.data.repository.CategoryRepositoryImpl
+import com.mnhyim.noteeey.data.repository.NoteRepositoryImpl
 import com.mnhyim.noteeey.domain.repository.CategoryRepository
+import com.mnhyim.noteeey.domain.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +35,23 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideDao(database: NoteeeyDatabase) = database.categoryDao()
+    fun provideNoteDao(database: NoteeeyDatabase) = database.noteDao()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(database: NoteeeyDatabase) = database.categoryDao()
+
+    @Provides
+    @Singleton
+    fun provideNoteRepository(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+        noteDao: NoteDao,
+    ): NoteRepository {
+        return NoteRepositoryImpl(
+            ioDispatcher = ioDispatcher,
+            noteDao = noteDao
+        )
+    }
 
     @Provides
     @Singleton

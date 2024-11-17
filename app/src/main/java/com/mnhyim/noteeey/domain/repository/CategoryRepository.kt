@@ -1,6 +1,5 @@
 package com.mnhyim.noteeey.domain.repository
 
-import com.mnhyim.noteeey.data.entity.CategoryEntity
 import com.mnhyim.noteeey.domain.model.Category
 import kotlinx.coroutines.flow.Flow
 

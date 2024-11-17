@@ -44,7 +44,7 @@ fun AddCategoryScreen(
         topBar = {
             CustomTopAppBar(
                 title = "Add Categories",
-                onBack = {  },
+                onBack = { },
             )
         },
         floatingActionButton = {
@@ -123,7 +123,9 @@ private fun AddCategoryScreenContent(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
-            itemsIndexed(items = categories, key = { _, category -> category.id }) { index, category ->
+            itemsIndexed(
+                items = categories,
+                key = { _, category -> category.id }) { index, category ->
                 CategoryItem(
                     category = category,
                     onDelete = { onDelete(category) },
