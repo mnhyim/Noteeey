@@ -1,4 +1,4 @@
-package com.mnhyim.noteeey.ui.feature.addnote
+package com.mnhyim.noteeey.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -66,17 +66,19 @@ fun CustomDropdown(
             },
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent
             ),
+            modifier = Modifier.fillMaxWidth()
         )
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .clip(MaterialTheme.shapes.extraSmall)
-                .clickable { expanded = true },
+                .clip(MaterialTheme.shapes.medium)
+                .clickable { expanded = true }
+                .clip(MaterialTheme.shapes.medium)
         )
     }
 }

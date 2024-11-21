@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.mnhyim.noteeey.navigation.Routes
+import com.mnhyim.noteeey.ui.navigation.Routes
 
 enum class SettingItemEntries(
     val title: String,

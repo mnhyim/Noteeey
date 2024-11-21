@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mnhyim.noteeey.navigation.Routes
+import com.mnhyim.noteeey.ui.navigation.Routes
 import com.mnhyim.noteeey.ui.components.CustomCenterAlignedTopAppBar
 import com.mnhyim.noteeey.ui.components.SettingItem
 

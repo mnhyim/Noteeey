@@ -1,4 +1,4 @@
-package com.mnhyim.noteeey.ui.feature.addnote
+package com.mnhyim.noteeey.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

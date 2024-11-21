@@ -3,75 +3,86 @@ package com.mnhyim.noteeey.ui.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mnhyim.noteeey.ui.theme.NoteeeyTheme
+import com.mnhyim.noteeey.domain.model.Note
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
+import com.mohamedrejeb.richeditor.ui.material3.RichText
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import kotlin.text.format
 
 @Composable
 fun NoteItem(
+    note: Note,
     modifier: Modifier = Modifier
 ) {
+    val richTextState = rememberRichTextState()
+
+    LaunchedEffect(Unit) {
+        richTextState.setMarkdown(note.content)
+    }
+
     Card(
-        onClick = {},
-        shape = MaterialTheme.shapes.small,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(1.dp),
-        modifier = modifier
+        onClick = {}
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
         ) {
             Text(
-                text = "Four Words Long Title",
-                style = MaterialTheme.typography.titleMedium,
+                text = note.title,
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            RichText(
+                state = richTextState,
+                style = MaterialTheme.typography.bodySmall,
                 maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodySmall
+                overflow = TextOverflow.Ellipsis
             )
-//            HorizontalDivider(
-//                thickness = 0.5.dp,
-//                color = Color.Gray,
-//                modifier = Modifier.padding(top = 6.dp, bottom = 4.dp)
-//            )
+            HorizontalDivider()
             Row(
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 6.dp, bottom = 8.dp)
             ) {
                 Text(
-                    text = "Uncategorized",
-                    color = Color.Gray,
-                    style = MaterialTheme.typography.labelSmall
+                    text = "[${note.category.name}]",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold)
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(Modifier.weight(1f))
                 Text(
-                    text = "22 August 2023",
-                    color = Color.Gray,
-                    style = MaterialTheme.typography.labelSmall
+                    text = "[${convertLocalDateTime(note.createdAt)}]",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold)
                 )
             }
+            HorizontalDivider()
         }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NoteItemPreview(modifier: Modifier = Modifier) {
-    NoteeeyTheme {
-        NoteItem(modifier = modifier)
-    }
+//    NoteeeyTheme {
+//        NoteItem(modifier = modifier)
+//    }
+}
+
+private fun convertLocalDateTime(date: LocalDateTime): String? {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+    return date.format(formatter)
 }

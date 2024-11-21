@@ -1,4 +1,4 @@
-package com.mnhyim.noteeey.ui.feature.addnote
+package com.mnhyim.noteeey.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FormatBold

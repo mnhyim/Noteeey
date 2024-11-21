@@ -1,4 +1,4 @@
-package com.mnhyim.noteeey.navigation
+package com.mnhyim.noteeey.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
